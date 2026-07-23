@@ -1,0 +1,1192 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniMatch AI - Higher-Ed Admissions Alignment Matrix</title>
+    <!-- Tailwind CSS Engine CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Inter Font and JetBrains Mono for High-Tech Metrics -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .mono-text {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .theme-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .glow-indigo:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
+        }
+        .glow-emerald:hover {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(51, 65, 85, 0.5);
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(71, 85, 105, 0.7);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen theme-transition overflow-x-hidden" id="app-body">
+
+    <!-- Global Application Navigation Bar -->
+    <header class="border-b border-slate-800 bg-slate-900/40 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-300">
+        <div class="max-w-[1600px] px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between mx-auto">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-2 cursor-pointer group" onclick="navigateToSection('landing')">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-black text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-all duration-300">U</div>
+                    <span class="text-xl font-black tracking-tight text-indigo-500 theme-transition" id="brand-logo">UniMatch</span>
+                    <span class="text-[10px] tracking-widest font-mono bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 border border-slate-700">AI v2.0</span>
+                </div>
+                
+                <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-400">
+                    <button onclick="navigateToSection('landing')" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-900/60 transition-all duration-200">Home</button>
+                    <button onclick="navigateToSection('app')" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-900/60 transition-all duration-200">Analysis Console</button>
+                    <button onclick="navigateToSection('auth')" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-900/60 transition-all duration-200">Partner Portals</button>
+                </nav>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <div class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800/80 shadow-inner relative w-64 h-10 select-none cursor-pointer" onclick="switchViewPersona()">
+                    <div class="absolute top-1 left-1 bottom-1 w-[122px] bg-indigo-600 rounded-lg theme-transition shadow-lg shadow-indigo-600/20" id="pill-indicator"></div>
+                    <div class="w-1/2 text-center text-xs font-bold z-10 theme-transition text-white" id="text-student">I am a Student</div>
+                    <div class="w-1/2 text-center text-xs font-bold z-10 theme-transition text-slate-400" id="text-institute">I am an Institute</div>
+                </div>
+
+                <div id="auth-nav-container">
+                    <button id="auth-btn-action" onclick="navigateToSection('auth')" class="inline-flex items-center justify-center text-xs font-bold px-4 h-10 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white transition-all duration-200 shadow-md shadow-indigo-600/20">
+                        Sign In / Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: LANDING MARKETING -->
+    <section id="landing-marketing-section" class="block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 animate-fade-in">
+        <div class="text-center max-w-3xl mx-auto space-y-6 mb-16">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold text-indigo-400 bg-indigo-950/50 border border-indigo-900/50 rounded-full">
+                <span class="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse"></span> Predictive Enrollment Matrix Engine
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
+                Calculate Admission Odds with <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Absolute Data Precision</span>
+            </h1>
+            <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                Empowering students and sovereign universities to calibrate financial criteria, local high school career profiles, and institutional alignment metrics via optimized modern vector loops.
+            </p>
+            <div class="pt-4 flex flex-wrap justify-center gap-4">
+                <button onclick="navigateToSection('app')" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-600/20 transition-all duration-200 transform hover:-translate-y-0.5">
+                    Launch Matrix Workspace
+                </button>
+                <button onclick="navigateToSection('auth')" class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-800 transition-all duration-200">
+                    Access Portal Login
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-3">
+                <div class="text-2xl">⚡</div>
+                <h3 class="text-sm font-bold text-slate-200">Predictive Alignment Analytics</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">Utilize standardized testing, localized baseline configurations, and unweighted scale inputs to verify reach, target, and safety streams instantly.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-3">
+                <div class="text-2xl">🔮</div>
+                <h3 class="text-sm font-bold text-slate-200">Hypothetical Odds Simulator</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">Simulate SAT/GPA score boosts and financial scenarios in real-time. Factual data is restored instantly upon exiting simulation mode.</p>
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-3">
+                <div class="text-2xl">💵</div>
+                <h3 class="text-sm font-bold text-slate-200">Financial Fit & Residency Calibration</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">In-state vs out-of-state tuition fees and need-based aid are calculated against family income and annual budget caps.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: AUTHENTICATION -->
+    <section id="auth-portal-section" class="hidden max-w-md mx-auto px-4 py-20 animate-fade-in">
+        <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 space-y-6 shadow-2xl relative backdrop-blur-xl">
+            <div class="space-y-2 text-center">
+                <h2 class="text-2xl font-black text-white tracking-tight" id="auth-heading">Access Analytics Dashboard</h2>
+                <p class="text-xs text-slate-400" id="auth-subheading">Synchronize academic footprints with matching algorithms.</p>
+            </div>
+
+            <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+                <button type="button" id="tab-login" onclick="setAuthMode('login')" class="w-1/2 py-2 rounded-lg text-white bg-indigo-600 transition-all">Sign In</button>
+                <button type="button" id="tab-signup" onclick="setAuthMode('signup')" class="w-1/2 py-2 rounded-lg text-slate-400 hover:text-white transition-all">Create Account</button>
+            </div>
+
+            <button onclick="handleGoogleSignIn()" class="w-full flex items-center justify-center gap-3 bg-slate-950 hover:bg-slate-800 text-white font-bold py-2.5 px-4 rounded-xl text-sm border border-slate-800 transition-all duration-200">
+                <svg class="w-4 h-4" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Continue with Google</span>
+            </button>
+
+            <div class="relative flex py-1 items-center">
+                <div class="flex-grow border-t border-slate-800"></div>
+                <span class="flex-shrink mx-3 text-[10px] font-mono text-slate-500 uppercase">Or Email Matrix</span>
+                <div class="flex-grow border-t border-slate-800"></div>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Institutional / Student Email ID</label>
+                    <input type="email" id="auth-email" placeholder="name@domain.edu" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm tracking-wide">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Matrix Passcode Key</label>
+                    <input type="password" id="auth-password" placeholder="••••••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-indigo-500 text-sm tracking-wide">
+                </div>
+            </div>
+
+            <div id="auth-status-msg" class="hidden p-3 rounded-xl text-xs font-medium border"></div>
+
+            <button type="button" id="auth-submit-btn" onclick="executeEmailAuth()" class="w-full h-11 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-md shadow-indigo-600/10">
+                Authenticate & Redirect
+            </button>
+        </div>
+    </section>
+
+    <!-- SECTION 3: MAIN ANALYTICS CONSOLE -->
+    <main id="main-workspace-section" class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 hidden">
+        
+        <!-- STUDENT PERSONA SUB-PANEL LAYER -->
+        <div id="student-view-panel" class="space-y-6 block">
+            
+            <div class="bg-gradient-to-r from-slate-900 to-indigo-950/20 p-6 rounded-2xl border border-slate-800/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <h1 class="text-2xl font-black tracking-tight text-white flex items-center gap-2">
+                        Predictive Admission Probability Matrix
+                    </h1>
+                    <p class="text-slate-400 max-w-2xl text-xs">
+                        Configure baseline indicators, financial bounds, and extracurricular DNA components. Launch the Hypothetical Odds Simulator to project predicted target shifts.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                    <button onclick="openHypotheticalSimulator(null, 'All Universities')" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-600/20 transition-all flex items-center gap-1.5 border border-purple-400/30">
+                        <span>🔮</span> Open Hypothetical Odds Simulator
+                    </button>
+                    <span class="text-xs font-mono font-bold tracking-wider text-indigo-400 uppercase bg-indigo-950/40 px-3 py-1.5 border border-indigo-900/50 rounded-lg" id="student-match-count">0 Schools Computed</span>
+                </div>
+            </div>
+
+            <!-- HYPOTHETICAL SIMULATION ACTIVE BANNER -->
+            <div id="hypothetical-active-banner" class="hidden bg-gradient-to-r from-purple-950/90 via-indigo-950/90 to-slate-900 border border-purple-500/50 rounded-2xl p-4 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="p-2 bg-purple-600/30 rounded-xl border border-purple-400/40 text-purple-300 text-xl">🔮</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-purple-200 uppercase tracking-wider flex items-center gap-2">
+                            Hypothetical Simulation Mode Active
+                            <span class="text-[9px] bg-purple-500/30 text-purple-300 border border-purple-400/30 px-2 py-0.5 rounded-full font-mono">SIMULATED SCENARIO</span>
+                        </h4>
+                        <p class="text-xs text-purple-300/80">Displaying predicted odds & net financial costs. Exiting simulation mode will instantly discard all predicted data and restore factual baselines.</p>
+                    </div>
+                </div>
+                <button onclick="exitHypotheticalMode()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5 shrink-0">
+                    <span>✕</span> Exit Simulation Mode (Restore Baseline)
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <!-- LEFT PARAMETER SIDEBAR (Student Profile & Financial Controls) -->
+                <div class="lg:col-span-4 bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-6 space-y-6 sticky top-24 shadow-xl">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-200">Profile & Financial Canvas</h3>
+                            <p class="text-[11px] text-slate-400">Modify properties to re-calculate matching loops.</p>
+                        </div>
+                        <span class="text-[10px] font-mono uppercase font-black bg-slate-950 border border-slate-800 px-2 py-1 rounded text-slate-400">Factual State</span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">Home City / Location</label>
+                            <input type="text" id="student-home-city" placeholder="e.g. New York, San Francisco" value="New York" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm transition-all duration-150">
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">State of Residence (Residency Fees)</label>
+                            <select id="student-state" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm transition-all duration-150 cursor-pointer">
+                                <option value="NY" selected>New York (NY)</option>
+                                <option value="CA">California (CA)</option>
+                                <option value="TX">Texas (TX)</option>
+                                <option value="MA">Massachusetts (MA)</option>
+                                <option value="MI">Michigan (MI)</option>
+                                <option value="FL">Florida (FL)</option>
+                                <option value="GA">Georgia (GA)</option>
+                                <option value="IL">Illinois (IL)</option>
+                                <option value="WA">Washington (WA)</option>
+                                <option value="OH">Ohio (OH)</option>
+                                <option value="VA">Virginia (VA)</option>
+                                <option value="IN">Indiana (IN)</option>
+                                <option value="NC">North Carolina (NC)</option>
+                                <option value="NH">New Hampshire (NH)</option>
+                                <option value="TN">Tennessee (TN)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">GPA Baseline (Unweighted 4.0 Scale)</label>
+                                <span class="text-xs font-mono text-indigo-400 font-bold" id="gpa-numerical-echo">3.85</span>
+                            </div>
+                            <input type="number" id="student-gpa" step="0.01" min="0.0" max="4.0" value="3.85" oninput="document.getElementById('gpa-numerical-echo').innerText=this.value" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm font-mono transition-all duration-150">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">SAT Baseline Score</label>
+                                <input type="number" id="student-sat" min="400" max="1600" value="1460" placeholder="e.g. 1460" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm font-mono transition-all duration-150">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">ACT Baseline Score</label>
+                                <input type="number" id="student-act" min="1" max="36" value="32" placeholder="e.g. 32" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm font-mono transition-all duration-150">
+                            </div>
+                        </div>
+
+                        <!-- FINANCIAL CRITERIA BOUNDS -->
+                        <div class="border-t border-slate-800/80 pt-4 space-y-4">
+                            <span class="block text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400">Financial Profile & Budget Criteria</span>
+                            <div>
+                                <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Annual Household Income ($)</label>
+                                <input type="number" id="student-income" value="100000" step="5000" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm font-mono transition-all duration-150">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Family Size</label>
+                                    <input type="number" id="student-family-size" value="4" min="1" max="12" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm font-mono transition-all duration-150">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1">Max Annual Budget ($)</label>
+                                    <input type="number" id="student-budget-cap" value="30000" step="2500" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm font-mono transition-all duration-150">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">Target Major Trajectory</label>
+                            <select id="student-major" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm transition-all duration-150 cursor-pointer">
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                <option value="Business Administration">Business Administration</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Political Science">Political Science</option>
+                                <option value="Economics">Economics</option>
+                                <option value="Arts">Arts</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">Preferred Geographic US Region</label>
+                            <select id="student-region" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm transition-all duration-150 cursor-pointer">
+                                <option value="Northeast">Northeast</option>
+                                <option value="West">West</option>
+                                <option value="Midwest">Midwest</option>
+                                <option value="South">South</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">Campus Infrastructure Preference</label>
+                            <select id="student-campus" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm transition-all duration-150 cursor-pointer">
+                                <option value="Urban">Urban</option>
+                                <option value="Suburban">Suburban</option>
+                                <option value="Rural">Rural</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Extracurricular Profile DNA Matrix</label>
+                            <div class="flex flex-wrap gap-1.5" id="student-dna-container">
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="STEM" onclick="toggleDnaChip(this)">#STEM</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Leadership" onclick="toggleDnaChip(this)">#Leadership</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Community Service" onclick="toggleDnaChip(this)">#Community Service</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Arts" onclick="toggleDnaChip(this)">#Arts</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Athletics" onclick="toggleDnaChip(this)">#Athletics</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="First-Gen" onclick="toggleDnaChip(this)">#First-Gen</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Research" onclick="toggleDnaChip(this)">#Research</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Innovation" onclick="toggleDnaChip(this)">#Innovation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="calculateStudentMatches()" class="w-full h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-lg shadow-indigo-600/10 tracking-wide glow-indigo">
+                        Execute Matching Framework
+                    </button>
+                </div>
+                
+                <!-- DYNAMIC RENDERING TILES AREA -->
+                <div class="lg:col-span-8 space-y-6">
+
+                    <!-- Profile Optimizer Advisor Overlay Panel Section -->
+                    <div id="student-advisor-box" class="hidden bg-slate-900/80 border border-indigo-500/20 shadow-xl shadow-indigo-950/10 backdrop-blur-md rounded-2xl p-5 text-sm text-slate-200 space-y-3 border-l-4 border-l-indigo-500 animate-slide-down">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 font-bold uppercase tracking-wider text-xs text-indigo-400">
+                                <span>✨ Tactical Optimizer & Advice Assessment</span>
+                            </div>
+                            <button onclick="document.getElementById('student-advisor-box').classList.add('hidden')" class="text-slate-500 hover:text-slate-300 text-xs">✕ Dismiss</button>
+                        </div>
+                        <p id="student-advisor-text" class="leading-relaxed text-slate-300 text-xs font-medium"></p>
+                    </div>
+                    
+                    <div>
+                        <div class="mb-4 flex items-center justify-between">
+                            <h3 class="text-xs font-bold font-mono tracking-widest text-slate-400 uppercase">Bidirectional Dynamic Alignment Streams</h3>
+                        </div>
+                        
+                        <div id="student-results-panel" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="col-span-2 text-center py-20 border border-slate-800/80 border-dashed rounded-2xl text-slate-500 space-y-2">
+                                <div class="text-3xl">📡</div>
+                                <p class="text-xs max-w-sm mx-auto leading-relaxed">No alignment streams loaded. Modify profile settings parameters and execute analysis matrix mapping loop.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INSTITUTIONAL PERSONA SUB-PANEL LAYER -->
+        <div id="institute-view-panel" class="space-y-6 hidden">
+            
+            <div class="bg-gradient-to-r from-slate-900 to-emerald-950/20 p-6 rounded-2xl border border-slate-800/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <h1 class="text-2xl font-black tracking-tight text-white flex items-center gap-2">
+                        Institutional Recruitment Radar Grid
+                    </h1>
+                    <p class="text-slate-400 max-w-2xl text-xs">
+                        Define incoming class configurations, optimize yield targets, and perform compliance data sweeps over current pipelines.
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                    <span class="text-xs font-mono font-bold tracking-wider text-emerald-400 uppercase bg-emerald-950/40 px-3 py-1.5 border border-emerald-900/50 rounded-lg" id="inst-candidate-count">0 Match Cohorts Found</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <div class="lg:col-span-4 bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-6 space-y-6 sticky top-24 shadow-xl">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                        <div>
+                            <h3 class="text-sm font-bold text-slate-200">Recruitment Controls</h3>
+                            <p class="text-[11px] text-slate-400">Manage acceptance baselines.</p>
+                        </div>
+                        <span class="text-[10px] font-mono uppercase font-black bg-slate-950 border border-slate-800 px-2 py-1 rounded text-emerald-400">Institutional</span>
+                    </div>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">Academic Threshold Baseline (Min GPA)</label>
+                                <span class="text-xs font-mono text-emerald-400 font-bold" id="inst-gpa-numerical-echo">3.50</span>
+                            </div>
+                            <input type="number" id="inst-min-gpa" step="0.1" min="2.0" max="4.0" value="3.5" oninput="document.getElementById('inst-gpa-numerical-echo').innerText=parseFloat(this.value).toFixed(2)" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-emerald-500 text-sm font-mono transition-all duration-150">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Target Student DNA Matrix Profile Priorities</label>
+                            <div class="flex flex-wrap gap-1.5" id="inst-dna-container">
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="STEM" onclick="toggleInstChip(this)">#STEM</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Leadership" onclick="toggleInstChip(this)">#Leadership</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Community Service" onclick="toggleInstChip(this)">#Community Service</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Arts" onclick="toggleInstChip(this)">#Arts</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Athletics" onclick="toggleInstChip(this)">#Athletics</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="First-Gen" onclick="toggleInstChip(this)">#First-Gen</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Research" onclick="toggleInstChip(this)">#Research</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Innovation" onclick="toggleInstChip(this)">#Innovation</span>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-800 pt-4 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-200">Universal Equity Filter</label>
+                                    <span class="text-[10px] text-slate-400 block mt-0.5 leading-normal">Masks demographic properties to prevent admission evaluation bias loops.</span>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer shrink-0 ml-2">
+                                    <input type="checkbox" id="equity-filter-toggle" class="sr-only peer" onchange="runRecruitmentRadar()">
+                                    <div class="w-10 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-400 after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-600 peer-checked:after:bg-white"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button onclick="runRecruitmentRadar()" class="w-full h-10 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition-all duration-200 shadow-lg shadow-emerald-600/10 glow-emerald">
+                            Query Candidates
+                        </button>
+                        <button onclick="fetchOutreachStrategy()" class="w-full h-10 bg-slate-950 hover:bg-slate-800 text-slate-200 font-bold rounded-xl text-xs transition-all duration-200 border border-slate-800">
+                            Outreach Strategy
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-8 space-y-6">
+                    <div id="inst-advisor-box" class="hidden bg-slate-900/80 border border-emerald-500/20 shadow-xl shadow-emerald-950/10 backdrop-blur-md rounded-2xl p-5 text-sm text-slate-200 space-y-3 border-l-4 border-l-emerald-500 animate-slide-down">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 font-bold uppercase tracking-wider text-xs text-emerald-400">
+                                <span>📈 Model Outreach Evaluation Summary</span>
+                            </div>
+                            <button onclick="document.getElementById('inst-advisor-box').classList.add('hidden')" class="text-slate-500 hover:text-slate-300 text-xs">✕ Dismiss</button>
+                        </div>
+                        <p id="inst-advisor-text" class="leading-relaxed text-slate-300 text-xs font-medium"></p>
+                    </div>
+                    
+                    <div>
+                        <div class="mb-4">
+                            <h3 class="text-xs font-bold font-mono tracking-widest text-slate-400 uppercase">Anonymized Candidate Pipeline Stream</h3>
+                        </div>
+                        
+                        <div id="institute-results-panel" class="space-y-3 max-h-[700px] overflow-y-auto pr-2">
+                            <div class="text-center py-20 border border-slate-800/80 border-dashed rounded-2xl text-slate-500 space-y-2">
+                                <div class="text-3xl">📊</div>
+                                <p class="text-xs max-w-sm mx-auto leading-relaxed">Recruitment pool stream currently unpopulated. Execute pipeline alignment mappings using criteria maps.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- HYPOTHETICAL SIMULATOR MODAL / DRAWER -->
+    <div id="hypothetical-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-purple-500/30 rounded-2xl p-6 max-w-xl w-full space-y-6 shadow-2xl relative">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div>
+                    <h3 class="text-base font-bold text-purple-300 flex items-center gap-2">
+                        <span>🔮</span> Hypothetical Odds Simulator
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Test predicted score increases, extra DNA roles, or financial scenarios without modifying original factual records.</p>
+                </div>
+                <button onclick="closeHypotheticalModal()" class="text-slate-400 hover:text-white text-sm">✕</button>
+            </div>
+
+            <div class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-mono uppercase text-slate-400 mb-1">Target School Focus</label>
+                    <select id="hyp-target-uni" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
+                        <option value="">All Universities Matrix</option>
+                        <option value="1">MIT</option>
+                        <option value="2">Stanford University</option>
+                        <option value="3">Harvard University</option>
+                        <option value="4">UC Berkeley</option>
+                        <option value="5">University of Michigan</option>
+                        <option value="6">UT Austin</option>
+                        <option value="7">NYU</option>
+                        <option value="8">Northwestern University</option>
+                        <option value="9">Georgia Tech</option>
+                        <option value="10">University of Florida</option>
+                        <option value="11">Williams College</option>
+                        <option value="12">Vanderbilt University</option>
+                        <option value="13">University of Washington</option>
+                        <option value="14">Ohio State University</option>
+                        <option value="15">University of Virginia</option>
+                        <option value="16">Caltech</option>
+                        <option value="17">Duke University</option>
+                        <option value="18">Dartmouth College</option>
+                        <option value="19">Purdue University</option>
+                        <option value="20">Rice University</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block font-mono uppercase text-slate-400 mb-1">Simulated GPA</label>
+                        <input type="number" id="hyp-gpa" step="0.05" min="0.0" max="4.0" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-purple-300 font-mono font-bold">
+                    </div>
+                    <div>
+                        <label class="block font-mono uppercase text-slate-400 mb-1">Simulated SAT</label>
+                        <input type="number" id="hyp-sat" step="10" min="400" max="1600" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-purple-300 font-mono font-bold">
+                    </div>
+                    <div>
+                        <label class="block font-mono uppercase text-slate-400 mb-1">Simulated ACT</label>
+                        <input type="number" id="hyp-act" min="1" max="36" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-purple-300 font-mono font-bold">
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-800 pt-3">
+                    <label class="block font-mono uppercase text-slate-400 mb-2">Simulated Extra DNA & Extracurricular Roles</label>
+                    <div class="flex flex-wrap gap-1.5" id="hyp-dna-container">
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="STEM" onclick="toggleHypDnaChip(this)">#STEM</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Leadership" onclick="toggleHypDnaChip(this)">#Leadership</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Community Service" onclick="toggleHypDnaChip(this)">#Community Service</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Arts" onclick="toggleHypDnaChip(this)">#Arts</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Athletics" onclick="toggleHypDnaChip(this)">#Athletics</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="First-Gen" onclick="toggleHypDnaChip(this)">#First-Gen</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Research" onclick="toggleHypDnaChip(this)">#Research</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Innovation" onclick="toggleHypDnaChip(this)">#Innovation</span>
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-800 pt-3 space-y-3">
+                    <span class="block font-mono uppercase text-purple-400 font-bold">Simulated Financial Criteria</span>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Simulated Income ($)</label>
+                            <input type="number" id="hyp-income" step="5000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono">
+                        </div>
+                        <div>
+                            <label class="block font-mono text-[10px] uppercase text-slate-400 mb-1">Simulated Budget Cap ($)</label>
+                            <input type="number" id="hyp-budget-cap" step="2500" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-3 pt-2">
+                <button onclick="runHypotheticalSimulation()" class="w-2/3 h-11 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold rounded-xl text-xs transition-all shadow-lg shadow-purple-600/20">
+                    Apply Simulated Scenario
+                </button>
+                <button onclick="exitHypotheticalMode()" class="w-1/3 h-11 bg-slate-950 hover:bg-slate-800 text-slate-300 font-bold rounded-xl text-xs border border-slate-800">
+                    Exit & Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScope = 'student';
+        let currentAuthMode = 'login';
+        let currentUserSession = null;
+        let isHypotheticalActive = false;
+
+        const SUPABASE_URL = "{{ supabase_url }}";
+        const SUPABASE_ANON_KEY = "{{ supabase_anon_key }}";
+        const supabaseClient = (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) 
+            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
+            : null;
+
+        function navigateToSection(targetId) {
+            const marketingSection = document.getElementById('landing-marketing-section');
+            const authSection = document.getElementById('auth-portal-section');
+            const workspaceSection = document.getElementById('main-workspace-section');
+            
+            marketingSection.classList.add('hidden');
+            authSection.classList.add('hidden');
+            workspaceSection.classList.add('hidden');
+            
+            if (targetId === 'landing') {
+                marketingSection.classList.remove('hidden');
+                marketingSection.classList.add('block');
+            } else if (targetId === 'auth') {
+                authSection.classList.remove('hidden');
+                authSection.classList.add('block');
+            } else if (targetId === 'app') {
+                workspaceSection.classList.remove('hidden');
+                workspaceSection.classList.add('block');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.dna-chip[data-tag="STEM"], .dna-chip[data-tag="Leadership"]').forEach(el => toggleDnaChip(el));
+            document.querySelectorAll('.inst-dna-chip[data-tag="STEM"], .inst-dna-chip[data-tag="Research"]').forEach(el => toggleInstChip(el));
+            
+            if (supabaseClient) {
+                supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                    currentUserSession = session;
+                    updateAuthUI(session);
+                    if (session) {
+                        await loadSavedUserProfile();
+                    } else {
+                        calculateStudentMatches();
+                    }
+                });
+            } else {
+                calculateStudentMatches();
+            }
+            
+            navigateToSection('landing');
+        });
+
+        function updateAuthUI(session) {
+            const navContainer = document.getElementById('auth-nav-container');
+            if (session && session.user) {
+                navContainer.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-mono text-slate-400 hidden sm:inline">${session.user.email}</span>
+                        <button onclick="handleSignOut()" class="inline-flex items-center justify-center text-xs font-bold px-4 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-200 transition-all duration-200">
+                            Sign Out
+                        </button>
+                    </div>
+                `;
+            } else {
+                navContainer.innerHTML = `
+                    <button id="auth-btn-action" onclick="navigateToSection('auth')" class="inline-flex items-center justify-center text-xs font-bold px-4 h-10 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white transition-all duration-200 shadow-md shadow-indigo-600/20">
+                        Sign In / Register
+                    </button>
+                `;
+            }
+        }
+
+        function setAuthMode(mode) {
+            currentAuthMode = mode;
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
+            const heading = document.getElementById('auth-heading');
+            const subheading = document.getElementById('auth-subheading');
+            const submitBtn = document.getElementById('auth-submit-btn');
+
+            if (mode === 'login') {
+                tabLogin.className = "w-1/2 py-2 rounded-lg text-white bg-indigo-600 transition-all";
+                tabSignup.className = "w-1/2 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+                heading.innerText = "Access Analytics Dashboard";
+                subheading.innerText = "Synchronize academic footprints with matching algorithms.";
+                submitBtn.innerText = "Authenticate & Redirect";
+            } else {
+                tabSignup.className = "w-1/2 py-2 rounded-lg text-white bg-indigo-600 transition-all";
+                tabLogin.className = "w-1/2 py-2 rounded-lg text-slate-400 hover:text-white transition-all";
+                heading.innerText = "Create New Account";
+                subheading.innerText = "Store and persistent-track your admissions alignment metrics.";
+                submitBtn.innerText = "Register New Account";
+            }
+        }
+
+        async function executeEmailAuth() {
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+
+            if (!supabaseClient) {
+                displayAuthStatus("Supabase parameters are not configured in .env", "error");
+                return;
+            }
+
+            if (!email || !password) {
+                displayAuthStatus("Please fill in both email and password.", "error");
+                return;
+            }
+
+            if (currentAuthMode === 'login') {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                if (error) {
+                    displayAuthStatus(error.message, "error");
+                } else {
+                    displayAuthStatus("Sign in successful! Redirecting...", "success");
+                    setTimeout(() => navigateToSection('app'), 1000);
+                }
+            } else {
+                const { data, error } = await supabaseClient.auth.signUp({ email, password });
+                if (error) {
+                    displayAuthStatus(error.message, "error");
+                } else {
+                    displayAuthStatus("Account created! Verify your email or log in now.", "success");
+                }
+            }
+        }
+
+        async function handleGoogleSignIn() {
+            if (!supabaseClient) {
+                displayAuthStatus("Supabase configuration missing.", "error");
+                return;
+            }
+            const { error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin }
+            });
+            if (error) displayAuthStatus(error.message, "error");
+        }
+
+        async function handleSignOut() {
+            if (supabaseClient) {
+                await supabaseClient.auth.signOut();
+            }
+            currentUserSession = null;
+            navigateToSection('landing');
+        }
+
+        function displayAuthStatus(msg, type) {
+            const msgBox = document.getElementById('auth-status-msg');
+            msgBox.classList.remove('hidden', 'bg-rose-950/50', 'border-rose-800', 'text-rose-300', 'bg-emerald-950/50', 'border-emerald-800', 'text-emerald-300');
+            if (type === 'error') {
+                msgBox.classList.add('bg-rose-950/50', 'border-rose-800', 'text-rose-300');
+            } else {
+                msgBox.classList.add('bg-emerald-950/50', 'border-emerald-800', 'text-emerald-300');
+            }
+            msgBox.innerText = msg;
+        }
+
+        async function loadSavedUserProfile() {
+            if (!currentUserSession) return;
+            try {
+                const res = await fetch('/api/user/profile', {
+                    headers: { 'Authorization': `Bearer ${currentUserSession.access_token}` }
+                });
+                const data = await res.json();
+                if (data.profile) {
+                    const p = data.profile;
+                    if (p.home_city) document.getElementById('student-home-city').value = p.home_city;
+                    if (p.state_of_residence) document.getElementById('student-state').value = p.state_of_residence;
+                    if (p.gpa) {
+                        document.getElementById('student-gpa').value = p.gpa;
+                        document.getElementById('gpa-numerical-echo').innerText = p.gpa;
+                    }
+                    if (p.sat) document.getElementById('student-sat').value = p.sat;
+                    if (p.act) document.getElementById('student-act').value = p.act;
+                    if (p.major) document.getElementById('student-major').value = p.major;
+                    if (p.region) document.getElementById('student-region').value = p.region;
+                    if (p.campus) document.getElementById('student-campus').value = p.campus;
+                    if (p.household_income) document.getElementById('student-income').value = p.household_income;
+                    if (p.family_size) document.getElementById('student-family-size').value = p.family_size;
+                    if (p.annual_budget_cap) document.getElementById('student-budget-cap').value = p.annual_budget_cap;
+
+                    if (p.dna && Array.isArray(p.dna)) {
+                        document.querySelectorAll('.dna-chip').forEach(chip => {
+                            const tag = chip.getAttribute('data-tag');
+                            if (p.dna.includes(tag)) {
+                                chip.className = "dna-chip px-2.5 py-1 bg-indigo-600 text-[11px] rounded-lg font-medium cursor-pointer border border-indigo-400 text-white transition-all select-none shadow-md shadow-indigo-600/20";
+                            } else {
+                                chip.className = "dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300";
+                            }
+                        });
+                    }
+                }
+                calculateStudentMatches();
+            } catch (err) {
+                console.error("Error loading saved profile:", err);
+            }
+        }
+
+        async function saveUserProfileData(payload) {
+            if (!currentUserSession) return;
+            try {
+                await fetch('/api/user/profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${currentUserSession.access_token}`
+                    },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Error saving user profile data:", err);
+            }
+        }
+
+        function switchViewPersona() {
+            const body = document.getElementById('app-body');
+            const pill = document.getElementById('pill-indicator');
+            const logo = document.getElementById('brand-logo');
+            const txtStudent = document.getElementById('text-student');
+            const txtInstitute = document.getElementById('text-institute');
+            
+            const studentPanel = document.getElementById('student-view-panel');
+            const institutePanel = document.getElementById('institute-view-panel');
+
+            navigateToSection('app');
+
+            if (currentScope === 'student') {
+                currentScope = 'institute';
+                
+                body.classList.replace('bg-slate-950', 'bg-zinc-950');
+                pill.classList.replace('bg-indigo-600', 'bg-emerald-600');
+                pill.style.transform = 'translateX(116px)';
+                logo.classList.replace('text-indigo-500', 'text-emerald-500');
+                
+                txtStudent.classList.replace('text-white', 'text-slate-500');
+                txtInstitute.classList.replace('text-slate-400', 'text-white');
+                
+                studentPanel.classList.replace('block', 'hidden');
+                institutePanel.classList.replace('hidden', 'block');
+                
+                runRecruitmentRadar();
+            } else {
+                currentScope = 'student';
+                
+                body.classList.replace('bg-zinc-950', 'bg-slate-950');
+                pill.classList.replace('bg-emerald-600', 'bg-indigo-600');
+                pill.style.transform = 'translateX(0px)';
+                logo.classList.replace('text-emerald-500', 'text-indigo-500');
+                
+                txtStudent.classList.replace('text-slate-500', 'text-white');
+                txtInstitute.classList.replace('text-white', 'text-slate-400');
+                
+                institutePanel.classList.replace('block', 'hidden');
+                studentPanel.classList.replace('hidden', 'block');
+            }
+        }
+
+        function toggleDnaChip(element) {
+            if (element.classList.contains('bg-indigo-600')) {
+                element.className = "dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300";
+            } else {
+                element.className = "dna-chip px-2.5 py-1 bg-indigo-600 text-[11px] rounded-lg font-medium cursor-pointer border border-indigo-400 text-white transition-all select-none shadow-md shadow-indigo-600/20";
+            }
+        }
+
+        function toggleHypDnaChip(element) {
+            if (element.classList.contains('bg-purple-600')) {
+                element.className = "hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300";
+            } else {
+                element.className = "hyp-dna-chip px-2.5 py-1 bg-purple-600 text-[11px] rounded-lg font-medium cursor-pointer border border-purple-400 text-white shadow-md shadow-purple-600/20";
+            }
+        }
+
+        function toggleInstChip(element) {
+            if (element.classList.contains('bg-emerald-600')) {
+                element.className = "inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300";
+            } else {
+                element.className = "inst-dna-chip px-2.5 py-1 bg-emerald-600 text-[11px] rounded-lg font-medium cursor-pointer border border-emerald-400 text-white transition-all select-none shadow-md shadow-emerald-600/20";
+            }
+        }
+
+        function getSelectedTags(selector) {
+            const tags = [];
+            document.querySelectorAll(selector).forEach(chip => {
+                if (chip.classList.contains('bg-indigo-600') || chip.classList.contains('bg-emerald-600') || chip.classList.contains('bg-purple-600')) {
+                    tags.push(chip.getAttribute('data-tag'));
+                }
+            });
+            return tags;
+        }
+
+        async function calculateStudentMatches() {
+            const satVal = document.getElementById('student-sat').value;
+            const actVal = document.getElementById('student-act').value;
+
+            const payload = {
+                gpa: parseFloat(document.getElementById('student-gpa').value) || 0,
+                sat: satVal ? parseInt(satVal) : null,
+                act: actVal ? parseInt(actVal) : null,
+                major: document.getElementById('student-major').value,
+                region: document.getElementById('student-region').value,
+                campus_type: document.getElementById('student-campus').value,
+                home_city: document.getElementById('student-home-city').value || "",
+                state_of_residence: document.getElementById('student-state').value || "NY",
+                household_income: parseFloat(document.getElementById('student-income').value) || 100000,
+                family_size: parseInt(document.getElementById('student-family-size').value) || 4,
+                annual_budget_cap: parseFloat(document.getElementById('student-budget-cap').value) || 30000,
+                dna: getSelectedTags('.dna-chip'),
+                is_hypothetical: isHypotheticalActive
+            };
+
+            if (isHypotheticalActive) {
+                payload.hypothetical_target_uni_id = document.getElementById('hyp-target-uni').value;
+                payload.hypothetical_gpa = parseFloat(document.getElementById('hyp-gpa').value) || payload.gpa;
+                payload.hypothetical_sat = document.getElementById('hyp-sat').value ? parseInt(document.getElementById('hyp-sat').value) : payload.sat;
+                payload.hypothetical_act = document.getElementById('hyp-act').value ? parseInt(document.getElementById('hyp-act').value) : payload.act;
+                payload.hypothetical_dna = getSelectedTags('.hyp-dna-chip');
+                payload.hypothetical_income = parseFloat(document.getElementById('hyp-income').value) || payload.household_income;
+                payload.hypothetical_budget_cap = parseFloat(document.getElementById('hyp-budget-cap').value) || payload.annual_budget_cap;
+                payload.hypothetical_state = payload.state_of_residence;
+            } else if (currentUserSession) {
+                saveUserProfileData(payload);
+            }
+
+            try {
+                const response = await fetch('/api/match/student', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                renderStudentCards(data.matches);
+            } catch (err) {
+                console.error("Matching engine failure:", err);
+            }
+        }
+
+        function openHypotheticalSimulator(targetUniId, uniName) {
+            const modal = document.getElementById('hypothetical-modal');
+            const gpaBase = parseFloat(document.getElementById('student-gpa').value) || 3.5;
+            const satBase = parseInt(document.getElementById('student-sat').value) || 1300;
+            const actBase = parseInt(document.getElementById('student-act').value) || 28;
+            const incBase = parseFloat(document.getElementById('student-income').value) || 100000;
+            const budBase = parseFloat(document.getElementById('student-budget-cap').value) || 30000;
+
+            document.getElementById('hyp-gpa').value = Math.min(4.0, (gpaBase + 0.15)).toFixed(2);
+            document.getElementById('hyp-sat').value = Math.min(1600, satBase + 80);
+            document.getElementById('hyp-act').value = Math.min(36, actBase + 2);
+            document.getElementById('hyp-income').value = incBase;
+            document.getElementById('hyp-budget-cap').value = budBase;
+
+            if (targetUniId) {
+                document.getElementById('hyp-target-uni').value = targetUniId;
+            } else {
+                document.getElementById('hyp-target-uni').value = "";
+            }
+
+            const currentDna = getSelectedTags('.dna-chip');
+            document.querySelectorAll('.hyp-dna-chip').forEach(chip => {
+                const tag = chip.getAttribute('data-tag');
+                if (currentDna.includes(tag)) {
+                    chip.className = "hyp-dna-chip px-2.5 py-1 bg-purple-600 text-[11px] rounded-lg font-medium cursor-pointer border border-purple-400 text-white shadow-md shadow-purple-600/20";
+                } else {
+                    chip.className = "hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300";
+                }
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeHypotheticalModal() {
+            document.getElementById('hypothetical-modal').classList.add('hidden');
+        }
+
+        function runHypotheticalSimulation() {
+            isHypotheticalActive = true;
+            document.getElementById('hypothetical-active-banner').classList.remove('hidden');
+            closeHypotheticalModal();
+            calculateStudentMatches();
+        }
+
+        function exitHypotheticalMode() {
+            isHypotheticalActive = false;
+            document.getElementById('hypothetical-active-banner').classList.add('hidden');
+            closeHypotheticalModal();
+            calculateStudentMatches();
+        }
+
+        function renderStudentCards(matches) {
+            const panel = document.getElementById('student-results-panel');
+            document.getElementById('student-match-count').innerText = `${matches.length} Schools Computed`;
+            
+            if (!matches.length) {
+                panel.innerHTML = `<div class="col-span-2 text-center py-16 text-slate-500 text-xs">No matching universities computed across vector profiles.</div>`;
+                return;
+            }
+
+            panel.innerHTML = matches.map(m => {
+                const isHyp = m.hypothetical && m.hypothetical.active;
+                const activeProb = isHyp ? m.hypothetical.probability : m.probability;
+                const activeTier = isHyp ? m.hypothetical.tier : m.tier;
+                const activeColor = isHyp ? m.hypothetical.color : m.color;
+                const activeFin = isHyp ? m.hypothetical.financial : m.financial;
+
+                let strokeColor = '#10b981';
+                let pillBg = 'bg-emerald-950/40 text-emerald-400 border-emerald-900/50';
+                if (activeColor === 'amber') {
+                    strokeColor = '#f59e0b';
+                    pillBg = 'bg-amber-950/40 text-amber-400 border-amber-900/50';
+                }
+                if (activeColor === 'rose') {
+                    strokeColor = '#f43f5e';
+                    pillBg = 'bg-rose-950/40 text-rose-400 border-rose-900/50';
+                }
+
+                const radius = 24;
+                const circumference = 2 * Math.PI * radius;
+                const strokeDashoffset = circumference - (activeProb / 100) * circumference;
+                const isDreamCollege = activeProb >= 75;
+
+                return `
+                    <div class="bg-slate-900/40 border ${isHyp ? 'border-purple-500/50 shadow-purple-950/20' : isDreamCollege ? 'border-indigo-500/30 shadow-indigo-950/10' : 'border-slate-800/80'} rounded-2xl p-5 shadow-lg flex flex-col justify-between space-y-4 hover:border-slate-700/80 transition-all duration-200 relative group overflow-hidden">
+                        
+                        ${isHyp ? `<div class="absolute top-0 right-0 bg-purple-600 text-[9px] font-bold text-white px-3 py-0.5 rounded-bl-xl uppercase tracking-wider">Simulated Odds</div>` : isDreamCollege ? `<div class="absolute top-0 right-0 bg-indigo-600 text-[9px] font-bold text-white px-3 py-0.5 rounded-bl-xl uppercase tracking-wider">Dream Destination</div>` : ''}
+
+                        <div class="flex justify-between items-start gap-2">
+                            <div class="space-y-1.5">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h4 class="text-base font-bold text-white tracking-tight group-hover:text-indigo-400 transition-colors duration-150">${m.university}</h4>
+                                    <span class="text-[10px] font-mono font-bold bg-slate-950 border border-slate-800 text-slate-400 px-2 py-0.5 rounded">Rank #${m.rank}</span>
+                                </div>
+                                <div class="flex flex-wrap gap-1">
+                                    <span class="text-[9px] font-mono uppercase bg-slate-950 px-2 py-0.5 rounded text-slate-400 border border-slate-800/60">${m.region}</span>
+                                    <span class="text-[9px] font-mono uppercase bg-slate-950 px-2 py-0.5 rounded text-slate-400 border border-slate-800/60">${m.campus_type}</span>
+                                    <span class="text-[9px] bg-slate-950 px-2 py-0.5 rounded text-slate-300 font-medium border border-slate-800">${m.location}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="relative flex items-center justify-center w-14 h-14 shrink-0 bg-slate-950 rounded-xl border border-slate-800">
+                                <svg class="transform -rotate-90 w-12 h-12">
+                                    <circle cx="24" cy="24" r="${radius}" stroke="#1e293b" stroke-width="3" fill="transparent" />
+                                    <circle cx="24" cy="24" r="${radius}" stroke="${strokeColor}" stroke-width="3" fill="transparent"
+                                            stroke-dasharray="${circumference}" stroke-dashoffset="${strokeDashoffset}" stroke-linecap="round"/>
+                                </svg>
+                                <span class="absolute text-[11px] font-mono font-black text-white">${activeProb}%</span>
+                            </div>
+                        </div>
+
+                        ${isHyp ? `
+                            <div class="bg-purple-950/40 border border-purple-800/60 rounded-xl p-2.5 flex items-center justify-between text-[11px] font-mono">
+                                <span class="text-purple-300">Factual Baseline: <strong>${m.probability}%</strong></span>
+                                <span class="text-emerald-400 font-bold">${m.hypothetical.probability_delta >= 0 ? '+' : ''}${m.hypothetical.probability_delta}% Shift</span>
+                            </div>
+                        ` : ''}
+
+                        <!-- FINANCIAL & RESIDENCY FIT CARD -->
+                        <div class="bg-slate-950/90 border border-slate-800/80 rounded-xl p-3 space-y-2">
+                            <div class="flex items-center justify-between text-[10px]">
+                                <span class="font-mono uppercase text-slate-400">Fee Status: <strong class="text-slate-200">${activeFin.tuition_type}</strong></span>
+                                <span class="px-2 py-0.5 rounded font-bold uppercase text-[9px] border ${activeFin.budget_color === 'emerald' ? 'bg-emerald-950/50 text-emerald-400 border-emerald-900/50' : 'bg-rose-950/50 text-rose-400 border-rose-900/50'}">${activeFin.budget_status}</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 text-[11px] font-mono text-slate-300 border-t border-slate-800/80 pt-1.5">
+                                <div>Gross Tuition: <strong>$${activeFin.gross_tuition.toLocaleString()}</strong></div>
+                                <div>Est. Net Cost: <strong class="text-indigo-300">$${activeFin.net_cost.toLocaleString()}</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2">
+                            <div class="flex items-center justify-between text-[10px]">
+                                <span class="font-mono uppercase text-slate-400 tracking-wider">Testing Policy Framework</span>
+                                <span class="px-2 py-0.5 rounded-md font-bold uppercase text-[9px] border ${
+                                    m.testing_policy === 'Test-Required' ? 'bg-rose-950/40 text-rose-400 border-rose-900/30' :
+                                    m.testing_policy === 'Test-Blind' ? 'bg-slate-900 text-slate-400 border-slate-800' :
+                                    'bg-emerald-950/40 text-emerald-400 border-emerald-900/30'
+                                }">${m.testing_policy}</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">${m.testing_desc}</p>
+                        </div>
+
+                        <div class="space-y-2.5 pt-1">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="text-[10px] font-mono uppercase text-slate-400 tracking-wider">Classification:</span>
+                                    <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase border ${pillBg}">${activeTier} Match</span>
+                                </div>
+                                <button onclick="openHypotheticalSimulator(${m.id}, '${m.university.replace(/'/g, "\\'")}')" class="text-[11px] font-bold text-purple-400 hover:text-purple-300 transition-colors duration-100 flex items-center gap-0.5 group/btn">
+                                    Optimize Odds 🔮
+                                </button>
+                            </div>
+                            <p class="text-xs text-slate-400 leading-relaxed">${isHyp ? m.hypothetical.reasoning : m.reasoning}</p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-1 pt-1 border-t border-slate-800/40">
+                            ${m.dna_tags.map(tag => `<span class="text-[9px] font-mono bg-slate-950 text-indigo-400 border border-indigo-950/80 px-2 py-0.5 rounded-md">#${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function fetchProfileAdvice(university, tier) {
+            const advisorBox = document.getElementById('student-advisor-box');
+            const advisorText = document.getElementById('student-advisor-text');
+            
+            advisorText.innerText = "Running optimization sequence inference models across hyper-parameters...";
+            advisorBox.classList.remove('hidden');
+            advisorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            const payload = {
+                university: university,
+                tier: tier,
+                gpa: parseFloat(document.getElementById('student-gpa').value) || 3.5,
+                sat: document.getElementById('student-sat').value ? parseInt(document.getElementById('student-sat').value) : null,
+                act: document.getElementById('student-act').value ? parseInt(document.getElementById('student-act').value) : null,
+                dna: getSelectedTags('.dna-chip'),
+                is_hypothetical: isHypotheticalActive,
+                hypothetical_gpa: isHypotheticalActive ? parseFloat(document.getElementById('hyp-gpa').value) : null,
+                hypothetical_sat: isHypotheticalActive ? parseInt(document.getElementById('hyp-sat').value) : null
+            };
+
+            try {
+                const response = await fetch('/api/advisor/profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                advisorText.innerText = data.advice;
+            } catch (err) {
+                advisorText.innerText = "Error executing analysis parameter optimization loops.";
+            }
+        }
+
+        async function runRecruitmentRadar() {
+            const payload = {
+                min_gpa: parseFloat(document.getElementById('inst-min-gpa').value) || 0,
+                target_dna: getSelectedTags('.inst-dna-chip'),
+                anonymize: document.getElementById('equity-filter-toggle').checked
+            };
+
+            try {
+                const response = await fetch('/api/match/institute', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                renderInstituteList(data.candidates);
+            } catch (err) {
+                console.error("Institutional matrix execution error:", err);
+            }
+        }
+
+        async function fetchOutreachStrategy() {
+            const advisorBox = document.getElementById('inst-advisor-box');
+            const advisorText = document.getElementById('inst-advisor-text');
+            
+            advisorText.innerText = "Generating analytical target strategic alignment insights...";
+            advisorBox.classList.remove('hidden');
+            advisorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            const payload = {
+                min_gpa: parseFloat(document.getElementById('inst-min-gpa').value) || 3.5,
+                target_dna: getSelectedTags('.inst-dna-chip')
+            };
+
+            try {
+                const response = await fetch('/api/advisor/outreach', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                advisorText.innerText = data.strategy;
+            } catch (err) {
+                advisorText.innerText = "Failed to synchronize strategic analytical models.";
+            }
+        }
+
+        function renderInstituteList(candidates) {
+            const panel = document.getElementById('institute-results-panel');
+            document.getElementById('inst-candidate-count').innerText = `${candidates.length} Match Cohorts Found`;
+
+            if (!candidates.length) {
+                panel.innerHTML = `
+                    <div class="text-center py-16 border border-slate-800/80 border-dashed rounded-2xl text-slate-500 space-y-1">
+                        <p class="text-sm">No candidate pathways found meeting this baseline configuration matrix.</p>
+                    </div>`;
+                return;
+            }
+
+            panel.innerHTML = candidates.map(c => `
+                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md hover:border-slate-700/60 transition-all duration-150">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center gap-3">
+                            <h4 class="text-sm font-bold text-white tracking-wide font-mono">${c.name}</h4>
+                            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-950 text-emerald-400 border border-emerald-950/60">Fit Index: ${c.fit_score}%</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-mono">
+                            <span>GPA Base: <strong class="text-slate-200">${c.gpa.toFixed(2)}</strong></span>
+                            <span>SAT: <strong class="text-slate-200">${c.sat || 'N/A'}</strong></span>
+                            <span>ACT: <strong class="text-slate-200">${c.act || 'N/A'}</strong></span>
+                            <span>Trajectory: <strong class="text-slate-200 font-sans">${c.major}</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-1 items-center max-w-xs md:justify-end">
+                        ${c.dna.map(tag => `<span class="text-[10px] font-mono bg-slate-950 text-slate-400 px-2 py-0.5 rounded border border-slate-850">#${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
