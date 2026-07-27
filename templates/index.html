@@ -57,7 +57,7 @@
                 <div class="flex items-center gap-2 cursor-pointer group" onclick="navigateToSection('landing')">
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-black text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-all duration-300">U</div>
                     <span class="text-xl font-black tracking-tight text-indigo-500 theme-transition" id="brand-logo">UniMatch</span>
-                    <span class="text-[10px] tracking-widest font-mono bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 border border-slate-700">AI v2.0</span>
+                    <span class="text-[10px] tracking-widest font-mono bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 border border-slate-700">AI v2.5</span>
                 </div>
                 
                 <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-400">
@@ -117,9 +117,9 @@
                 <p class="text-xs text-slate-400 leading-relaxed">Simulate SAT/GPA score boosts and financial scenarios in real-time. Factual data is restored instantly upon exiting simulation mode.</p>
             </div>
             <div class="p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-3">
-                <div class="text-2xl">💵</div>
-                <h3 class="text-sm font-bold text-slate-200">Financial Fit & Residency Calibration</h3>
-                <p class="text-xs text-slate-400 leading-relaxed">In-state vs out-of-state tuition fees and need-based aid are calculated against family income and annual budget caps.</p>
+                <div class="text-2xl">🏛️</div>
+                <h3 class="text-sm font-bold text-slate-200">Institutional Real-Candidate Stream</h3>
+                <p class="text-xs text-slate-400 leading-relaxed">Colleges can evaluate real applicant streams using customized SAT/ACT baselines, superscoring rules, and specific extracurricular club criteria.</p>
             </div>
         </div>
     </section>
@@ -184,7 +184,7 @@
                         Predictive Admission Probability Matrix
                     </h1>
                     <p class="text-slate-400 max-w-2xl text-xs">
-                        Configure baseline indicators, financial bounds, and extracurricular DNA components. Launch the Hypothetical Odds Simulator to project predicted target shifts.
+                        Configure baseline indicators, financial bounds, and extracurricular DNA components. Submitting your profile automatically streams your candidate profile to institutional partner pipelines.
                     </p>
                 </div>
                 <div class="flex items-center gap-3 shrink-0">
@@ -261,11 +261,11 @@
                         
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">SAT Baseline Score</label>
+                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">SAT Score</label>
                                 <input type="number" id="student-sat" min="400" max="1600" value="1460" placeholder="e.g. 1460" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm font-mono transition-all duration-150">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">ACT Baseline Score</label>
+                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1.5">ACT Score</label>
                                 <input type="number" id="student-act" min="1" max="36" value="32" placeholder="e.g. 32" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-indigo-500 text-sm font-mono transition-all duration-150">
                             </div>
                         </div>
@@ -323,7 +323,7 @@
                         </div>
                         
                         <div>
-                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Extracurricular Profile DNA Matrix</label>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Extracurricular Profile & Clubs Matrix</label>
                             <div class="flex flex-wrap gap-1.5" id="student-dna-container">
                                 <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="STEM" onclick="toggleDnaChip(this)">#STEM</span>
                                 <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Leadership" onclick="toggleDnaChip(this)">#Leadership</span>
@@ -333,12 +333,20 @@
                                 <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="First-Gen" onclick="toggleDnaChip(this)">#First-Gen</span>
                                 <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Research" onclick="toggleDnaChip(this)">#Research</span>
                                 <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Innovation" onclick="toggleDnaChip(this)">#Innovation</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Debate & Model UN" onclick="toggleDnaChip(this)">#Debate & Model UN</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Robotics" onclick="toggleDnaChip(this)">#Robotics</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Student Government" onclick="toggleDnaChip(this)">#Student Government</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Music & Performing Arts" onclick="toggleDnaChip(this)">#Music & Performing Arts</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="DECA & Business" onclick="toggleDnaChip(this)">#DECA & Business</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Environmental Club" onclick="toggleDnaChip(this)">#Environmental Club</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Tutoring & Mentorship" onclick="toggleDnaChip(this)">#Tutoring & Mentorship</span>
+                                <span class="dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-indigo-500/50 transition-all select-none text-slate-300" data-tag="Journalism & Publishing" onclick="toggleDnaChip(this)">#Journalism & Publishing</span>
                             </div>
                         </div>
                     </div>
                     
                     <button onclick="calculateStudentMatches()" class="w-full h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-lg shadow-indigo-600/10 tracking-wide glow-indigo">
-                        Execute Matching Framework
+                        Execute Matching & Sync Pipeline
                     </button>
                 </div>
                 
@@ -378,40 +386,84 @@
             <div class="bg-gradient-to-r from-slate-900 to-emerald-950/20 p-6 rounded-2xl border border-slate-800/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="space-y-1">
                     <h1 class="text-2xl font-black tracking-tight text-white flex items-center gap-2">
-                        Institutional Recruitment Radar Grid
+                        Institutional Recruitment Radar & Candidate Pipeline Stream
                     </h1>
                     <p class="text-slate-400 max-w-2xl text-xs">
-                        Define incoming class configurations, optimize yield targets, and perform compliance data sweeps over current pipelines.
+                        Set score baselines, superscore policies, major tracks, and club criteria to discover real applicant candidates and optimize class yield profiles.
                     </p>
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
                     <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                    <span class="text-xs font-mono font-bold tracking-wider text-emerald-400 uppercase bg-emerald-950/40 px-3 py-1.5 border border-emerald-900/50 rounded-lg" id="inst-candidate-count">0 Match Cohorts Found</span>
+                    <span class="text-xs font-mono font-bold tracking-wider text-emerald-400 uppercase bg-emerald-950/40 px-3 py-1.5 border border-emerald-900/50 rounded-lg" id="inst-candidate-count">0 Candidates Evaluated</span>
                 </div>
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 
-                <div class="lg:col-span-4 bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-6 space-y-6 sticky top-24 shadow-xl">
+                <!-- INSTITUTION FILTERS & BASELINES SIDEBAR -->
+                <div class="lg:col-span-4 bg-slate-900/40 border border-slate-800/80 backdrop-blur-md rounded-2xl p-6 space-y-6 sticky top-24 shadow-xl max-h-[85vh] overflow-y-auto">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-4">
                         <div>
-                            <h3 class="text-sm font-bold text-slate-200">Recruitment Controls</h3>
-                            <p class="text-[11px] text-slate-400">Manage acceptance baselines.</p>
+                            <h3 class="text-sm font-bold text-slate-200">Recruitment Controls & Baselines</h3>
+                            <p class="text-[11px] text-slate-400">Specify score baselines, superscoring rules & clubs.</p>
                         </div>
                         <span class="text-[10px] font-mono uppercase font-black bg-slate-950 border border-slate-800 px-2 py-1 rounded text-emerald-400">Institutional</span>
                     </div>
                     
-                    <div class="space-y-5">
+                    <div class="space-y-4">
                         <div>
-                            <div class="flex justify-between items-center mb-1.5">
+                            <div class="flex justify-between items-center mb-1">
                                 <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">Academic Threshold Baseline (Min GPA)</label>
                                 <span class="text-xs font-mono text-emerald-400 font-bold" id="inst-gpa-numerical-echo">3.50</span>
                             </div>
                             <input type="number" id="inst-min-gpa" step="0.1" min="2.0" max="4.0" value="3.5" oninput="document.getElementById('inst-gpa-numerical-echo').innerText=parseFloat(this.value).toFixed(2)" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-emerald-500 text-sm font-mono transition-all duration-150">
                         </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1">Min SAT Baseline</label>
+                                <input type="number" id="inst-min-sat" min="400" max="1600" value="1300" step="10" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 text-sm font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1">Min ACT Baseline</label>
+                                <input type="number" id="inst-min-act" min="1" max="36" value="28" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 text-sm font-mono">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1">Testing Policy & Superscore Strategy</label>
+                            <select id="inst-testing-mode" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 text-xs cursor-pointer">
+                                <option value="all" selected>Evaluate All Standardized Tests</option>
+                                <option value="sat_only">SAT Required Only</option>
+                                <option value="act_only">ACT Required Only</option>
+                                <option value="superscore">Superscore / Highest Equivalent</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1">Candidate Stream Source</label>
+                            <select id="inst-candidate-source" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 text-xs cursor-pointer" onchange="runRecruitmentRadar()">
+                                <option value="all" selected>All Applicants (Real Users + Benchmark Pool)</option>
+                                <option value="real_only">Real User Applicants Only</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1">Target Major Tracks Focus</label>
+                            <select id="inst-target-major" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 text-xs cursor-pointer">
+                                <option value="" selected>All Majors & Academic Trajectories</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                <option value="Business Administration">Business Administration</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Political Science">Political Science</option>
+                                <option value="Economics">Economics</option>
+                                <option value="Arts">Arts</option>
+                            </select>
+                        </div>
                         
                         <div>
-                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Target Student DNA Matrix Profile Priorities</label>
+                            <label class="block text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Target Student Clubs & Extracurricular Priorities</label>
                             <div class="flex flex-wrap gap-1.5" id="inst-dna-container">
                                 <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="STEM" onclick="toggleInstChip(this)">#STEM</span>
                                 <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Leadership" onclick="toggleInstChip(this)">#Leadership</span>
@@ -421,6 +473,14 @@
                                 <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="First-Gen" onclick="toggleInstChip(this)">#First-Gen</span>
                                 <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Research" onclick="toggleInstChip(this)">#Research</span>
                                 <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Innovation" onclick="toggleInstChip(this)">#Innovation</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Debate & Model UN" onclick="toggleInstChip(this)">#Debate & Model UN</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Robotics" onclick="toggleInstChip(this)">#Robotics</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Student Government" onclick="toggleInstChip(this)">#Student Government</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Music & Performing Arts" onclick="toggleInstChip(this)">#Music & Performing Arts</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="DECA & Business" onclick="toggleInstChip(this)">#DECA & Business</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Environmental Club" onclick="toggleInstChip(this)">#Environmental Club</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Tutoring & Mentorship" onclick="toggleInstChip(this)">#Tutoring & Mentorship</span>
+                                <span class="inst-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 hover:border-emerald-500/50 transition-all select-none text-slate-300" data-tag="Journalism & Publishing" onclick="toggleInstChip(this)">#Journalism & Publishing</span>
                             </div>
                         </div>
 
@@ -428,7 +488,7 @@
                             <div class="flex items-center justify-between">
                                 <div>
                                     <label class="block text-xs font-bold text-slate-200">Universal Equity Filter</label>
-                                    <span class="text-[10px] text-slate-400 block mt-0.5 leading-normal">Masks demographic properties to prevent admission evaluation bias loops.</span>
+                                    <span class="text-[10px] text-slate-400 block mt-0.5 leading-normal">Masks real candidate identity details to prevent evaluation bias loops.</span>
                                 </div>
                                 <label class="relative inline-flex items-center cursor-pointer shrink-0 ml-2">
                                     <input type="checkbox" id="equity-filter-toggle" class="sr-only peer" onchange="runRecruitmentRadar()">
@@ -440,7 +500,7 @@
                     
                     <div class="grid grid-cols-2 gap-3 pt-2">
                         <button onclick="runRecruitmentRadar()" class="w-full h-10 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition-all duration-200 shadow-lg shadow-emerald-600/10 glow-emerald">
-                            Query Candidates
+                            Query Pipeline Stream
                         </button>
                         <button onclick="fetchOutreachStrategy()" class="w-full h-10 bg-slate-950 hover:bg-slate-800 text-slate-200 font-bold rounded-xl text-xs transition-all duration-200 border border-slate-800">
                             Outreach Strategy
@@ -461,10 +521,10 @@
                     
                     <div>
                         <div class="mb-4">
-                            <h3 class="text-xs font-bold font-mono tracking-widest text-slate-400 uppercase">Anonymized Candidate Pipeline Stream</h3>
+                            <h3 class="text-xs font-bold font-mono tracking-widest text-slate-400 uppercase">Institutional Candidate Pipeline Stream (Real & Benchmark Pool)</h3>
                         </div>
                         
-                        <div id="institute-results-panel" class="space-y-3 max-h-[700px] overflow-y-auto pr-2">
+                        <div id="institute-results-panel" class="space-y-3 max-h-[750px] overflow-y-auto pr-2">
                             <div class="text-center py-20 border border-slate-800/80 border-dashed rounded-2xl text-slate-500 space-y-2">
                                 <div class="text-3xl">📊</div>
                                 <p class="text-xs max-w-sm mx-auto leading-relaxed">Recruitment pool stream currently unpopulated. Execute pipeline alignment mappings using criteria maps.</p>
@@ -543,6 +603,8 @@
                         <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="First-Gen" onclick="toggleHypDnaChip(this)">#First-Gen</span>
                         <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Research" onclick="toggleHypDnaChip(this)">#Research</span>
                         <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Innovation" onclick="toggleHypDnaChip(this)">#Innovation</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Robotics" onclick="toggleHypDnaChip(this)">#Robotics</span>
+                        <span class="hyp-dna-chip px-2.5 py-1 bg-slate-950 text-[11px] rounded-lg font-medium cursor-pointer border border-slate-800 text-slate-300" data-tag="Debate & Model UN" onclick="toggleHypDnaChip(this)">#Debate & Model UN</span>
                     </div>
                 </div>
 
@@ -1111,6 +1173,11 @@
         async function runRecruitmentRadar() {
             const payload = {
                 min_gpa: parseFloat(document.getElementById('inst-min-gpa').value) || 0,
+                min_sat: parseInt(document.getElementById('inst-min-sat').value) || 0,
+                min_act: parseInt(document.getElementById('inst-min-act').value) || 0,
+                testing_mode: document.getElementById('inst-testing-mode').value || 'all',
+                candidate_source: document.getElementById('inst-candidate-source').value || 'all',
+                target_major: document.getElementById('inst-target-major').value || '',
                 target_dna: getSelectedTags('.inst-dna-chip'),
                 anonymize: document.getElementById('equity-filter-toggle').checked
             };
@@ -1138,6 +1205,8 @@
 
             const payload = {
                 min_gpa: parseFloat(document.getElementById('inst-min-gpa').value) || 3.5,
+                min_sat: parseInt(document.getElementById('inst-min-sat').value) || 1300,
+                min_act: parseInt(document.getElementById('inst-min-act').value) || 28,
                 target_dna: getSelectedTags('.inst-dna-chip')
             };
 
@@ -1156,7 +1225,7 @@
 
         function renderInstituteList(candidates) {
             const panel = document.getElementById('institute-results-panel');
-            document.getElementById('inst-candidate-count').innerText = `${candidates.length} Match Cohorts Found`;
+            document.getElementById('inst-candidate-count').innerText = `${candidates.length} Candidates Evaluated`;
 
             if (!candidates.length) {
                 panel.innerHTML = `
@@ -1166,26 +1235,40 @@
                 return;
             }
 
-            panel.innerHTML = candidates.map(c => `
-                <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md hover:border-slate-700/60 transition-all duration-150">
-                    <div class="space-y-1.5">
-                        <div class="flex items-center gap-3">
-                            <h4 class="text-sm font-bold text-white tracking-wide font-mono">${c.name}</h4>
-                            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-950 text-emerald-400 border border-emerald-950/60">Fit Index: ${c.fit_score}%</span>
+            panel.innerHTML = candidates.map(c => {
+                const isReal = c.is_real_user;
+                const fitScore = c.fit_score || 0;
+                let fitBadgeColor = 'bg-emerald-950/60 text-emerald-400 border-emerald-800/60';
+                if (fitScore < 60) {
+                    fitBadgeColor = 'bg-rose-950/60 text-rose-400 border-rose-800/60';
+                } else if (fitScore < 80) {
+                    fitBadgeColor = 'bg-amber-950/60 text-amber-400 border-amber-800/60';
+                }
+
+                return `
+                    <div class="bg-slate-900/40 border ${isReal ? 'border-emerald-500/40 bg-emerald-950/10' : 'border-slate-800/80'} rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md hover:border-slate-700/60 transition-all duration-150 relative">
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h4 class="text-sm font-bold text-white tracking-wide font-mono flex items-center gap-2">
+                                    ${c.name}
+                                </h4>
+                                ${isReal ? `<span class="text-[9px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 uppercase tracking-wider">Real Applicant</span>` : `<span class="text-[9px] font-bold px-2 py-0.5 rounded-md bg-slate-800 text-slate-400 uppercase tracking-wider">Benchmark Pool</span>`}
+                                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${fitBadgeColor} border">Best Fit Index: ${fitScore}%</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-mono">
+                                <span>GPA: <strong class="text-slate-200">${c.gpa ? c.gpa.toFixed(2) : 'N/A'}</strong></span>
+                                <span>SAT: <strong class="text-slate-200">${c.sat || 'N/A'}</strong></span>
+                                <span>ACT: <strong class="text-slate-200">${c.act || 'N/A'}</strong></span>
+                                <span>Major: <strong class="text-slate-200 font-sans">${c.major || 'Undecided'}</strong></span>
+                            </div>
                         </div>
-                        <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-400 font-mono">
-                            <span>GPA Base: <strong class="text-slate-200">${c.gpa.toFixed(2)}</strong></span>
-                            <span>SAT: <strong class="text-slate-200">${c.sat || 'N/A'}</strong></span>
-                            <span>ACT: <strong class="text-slate-200">${c.act || 'N/A'}</strong></span>
-                            <span>Trajectory: <strong class="text-slate-200 font-sans">${c.major}</strong></span>
+                        
+                        <div class="flex flex-wrap gap-1 items-center max-w-xs md:justify-end">
+                            ${(c.dna || []).map(tag => `<span class="text-[10px] font-mono bg-slate-950 text-slate-300 px-2 py-0.5 rounded border border-slate-800">#${tag}</span>`).join('')}
                         </div>
                     </div>
-                    
-                    <div class="flex flex-wrap gap-1 items-center max-w-xs md:justify-end">
-                        ${c.dna.map(tag => `<span class="text-[10px] font-mono bg-slate-950 text-slate-400 px-2 py-0.5 rounded border border-slate-850">#${tag}</span>`).join('')}
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
     </script>
 </body>
